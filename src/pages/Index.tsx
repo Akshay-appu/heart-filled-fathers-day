@@ -1,13 +1,28 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import AnimatedHero from '@/components/AnimatedHero';
+import CharacterSection from '@/components/CharacterSection';
+import MessageSection from '@/components/MessageSection';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Index = () => {
+  useEffect(() => {
+    // Enable smooth scrolling
+    gsap.to(window, {duration: 0.3, scrollTo: 0});
+    
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <main className="min-h-screen overflow-x-hidden">
+      <AnimatedHero />
+      <CharacterSection />
+      <MessageSection />
+    </main>
   );
 };
 
